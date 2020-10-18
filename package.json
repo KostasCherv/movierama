@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha ./test",
-    "dev": "cross-env NODE_ENV=dev nodemon server.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --ignore './html/' server.js",
     "start": "cross-env NODE_ENV=prod node server.js"
   },
   "author": "Konstantinos Chervatidis",

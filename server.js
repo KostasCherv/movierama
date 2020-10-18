@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
 const passport = require('passport')
-const ensureNotLoggedIn = require('./services/ensureNotLoggedIn')
+const ensureNotLoggedIn = require('./authservices/ensureNotLoggedIn')
 require('dotenv').config()
 
 require('./database')
 require('./models')
-require('./services/passport')
+require('./authservices/passport')
 
 const routes = require('./routes')
 

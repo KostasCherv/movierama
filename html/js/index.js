@@ -1,4 +1,5 @@
 // init vars
+var $ = window.$
 let activeMovies, user, selectedUser
 let sortBy = 'createdAt'
 let currentPage = 1
@@ -61,7 +62,7 @@ async function createMovie (e) {
     }).then(r => r.json().then(({ data }) => {
       if (data === 'ok') {
         loadAllMovies()
-        window.$('#createMovieModal').modal('hide')
+        $('#createMovieModal').modal('hide')
         e.target.disabled = false
       }
     }))
@@ -70,6 +71,56 @@ async function createMovie (e) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
+async function editMovie (id) {
+  $('#editMovieModal').modal('show')
+
+  // form logic
+
+  const movie = activeMovies.find(o => o._id === id)
+  console.log(activeMovies, id)
+  if (!movie) {
+    return null
+  }
+  const form = document.getElementById('editMovieForm')
+  form.title.value = movie.title
+  form.description.value = movie.description
+  console.log(form)
+  form.onsubmit = async (e) => {
+    e.preventDefault()
+    e.target.disabled = true
+    const formData = new FormData(form)
+    const title = formData.get('title')
+    const description = formData.get('description')
+
+    // send request
+    if (title !== '') {
+      await fetch('/movie/' + movie._id, {
+        method: 'PUT',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        body: JSON.stringify({ title, description })
+      }).then(r => r.json().then(({ data }) => {
+        if (data && data.n === 1) {
+          loadAllMovies()
+          $('#editMovieModal').modal('hide')
+          e.target.disabled = false
+        } else {
+          // show error message and close
+          $('#editMovieModal').modal('hide')
+        }
+      }))
+    } else {
+      e.target.disabled = false
+    }
+  }
+}
+
+// eslint-disable-next-line no-unused-vars
 async function like (id) {
   const response = await fetch('/movie/like', {
     method: 'POST',
@@ -91,6 +142,7 @@ async function like (id) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function hate (id) {
   const response = await fetch('/movie/hate', {
     method: 'POST',
@@ -206,7 +258,12 @@ function renderMovieList (movies) {
               <button onclick=like("` + m._id + '") class="btn btn-success"' + (likeIt ? 'disabled' : '') + ` style="margin:2px">Like</button>
               <button onclick=hate("` + m._id + '") class="btn btn-danger" ' + (hateIt ? 'disabled' : '') + ` style="margin:2px">Hate</button>
             </div> ` : '') + `
-          </div>
+          </div>` +
+          (user && (m.createdBy._id === user._id)
+            ? `<div style="text-align: right;">
+            <button type="button" onclick=editMovie("` + m._id + `") class="btn btn-outline-warning">Edit</button>
+            <button type="button" onclick=deleteMovie("` + m._id + `") class="btn btn-outline-danger">Delete</button>
+          </div>` : '') + `
         </div>
         `
     movieList.appendChild(li)
@@ -274,3 +331,32 @@ document.getElementById('allMoviesBtn').onclick = () => loadAllMovies()
 document.getElementById('myMoviesBtn').onclick = () => loadUserMovies(user._id)
 
 document.getElementById('createBtn').onclick = createMovie
+
+// eslint-disable-next-line no-unused-vars
+function deleteMovie (id) {
+  $('#confirmationDeleteMovieModal').modal('show')
+  $('#confirmationDeleteMovieModal').one('hidden.bs.modal', function () {
+    $('#deleteMovieForm').off('submit')
+  })
+  $('#deleteMovieForm').one('submit', async (e) => {
+    e.preventDefault()
+    $('#confirmationDeleteMovieModal').off('hidden.bs.modal')
+    await fetch('/movie/' + id, {
+      method: 'DELETE',
+      mode: 'cors',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow'
+    }).then(r => r.json().then(({ data, error }) => {
+      if (data && data._id === id) {
+        loadAllMovies()
+        $('#confirmationDeleteMovieModal').modal('hide')
+      } else {
+      // show error message and close
+        console.error(error)
+      }
+    }))
+  })
+}
