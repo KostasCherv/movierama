@@ -1,0 +1,22 @@
+body {
+    background: floralwhite;
+
+}
+
+.active-sort {
+    color: currentColor;
+    pointer-events: none;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-form, .login-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

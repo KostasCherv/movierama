@@ -1,0 +1,36 @@
+{
+  "name": "movierama",
+  "version": "1.0.0",
+  "description": "Yet another social media app (sharing movies)",
+  "main": "server.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test mocha ./test",
+    "dev": "cross-env NODE_ENV=dev nodemon server.js",
+    "start": "cross-env NODE_ENV=prod node server.js"
+  },
+  "author": "Konstantinos Chervatidis",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-ensure-login": "^0.1.1",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.10.9",
+    "passport": "^0.4.1",
+    "passport-local-mongoose": "^6.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^7.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^8.2.0",
+    "request": "^2.88.2",
+    "supertest": "^5.0.0"
+  }
+}

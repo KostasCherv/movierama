@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title> Home </title>
+  <link rel="stylesheet" href="css/bootstrap4.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">MovieRama</h5>
+      <div style="padding: 2px;">
+        <button class="btn btn-outline-info" id="allMoviesBtn">All Movies</button>
+      </div>
+      <div id="loggedInBtns" class="d-flex flex-column flex-md-row align-items-center" style="display:none!important"   >
+        <div style="padding: 2px;">
+          <button class="btn btn-outline-secondary" id="myMoviesBtn">My Movies</button>
+        </div>
+        <div style="padding: 2px;">
+          <button class="btn btn-outline-success" data-toggle="modal" data-target="#createMovieModal">Create Movie</button>
+        </div>
+        <div style="padding: 2px;">
+          <form action="auth/logout" method="POST">
+            <button type="submit" class="btn btn-outline-danger">Logout</button>
+          </form>
+        </div>
+      </div>
+      <div id="visitorBtns" class="d-flex flex-column flex-md-row align-items-center" style="display:none!important">
+          <div style="padding: 2px;">
+            <a class="btn btn-outline-primary" href="/login">Login</a>
+          </div>
+          <div style="padding: 2px;">
+            <a class="btn btn-outline-primary" href="/register">Sign up</a>
+          </div> 
+      </div>
+     </div>
+    <div>
+      <div>
+        <p style="text-align: right;" id="welcomeMessage"></p>
+
+        <span>Sort By: </span>
+        <a href="#" class="sortby active-sort" id="sortByDate">Date</a> |
+        <a href="#" class="sortby" id="sortByLikes">Likes</a> |
+        <a href="#" class="sortby" id="sortByHates">Hates</a> |
+      </div>
+      <ul class="list-group" id="movieList">
+       
+      </ul>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><button id="previousPageBtn" disabled>Previous</button></li>
+          <li class="page-item"><button id="nextPageBtn"  disabled>Next</button></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- create movie modal -->
+  <div class="modal fade" id="createMovieModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Create New Movie</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form" id="createMovieForm">
+          <div class="modal-body">
+              <label style="margin-top: 5px;" for="titleInput"> Title</label>
+              <input type="text" class="form-control" id="titleInput" name="title"  placeholder="Enter title" required="">
+              <label style="margin-top: 5px;" for="descriptionInput"> Description</label>
+              <textarea class="form-control" id="descriptionInput" name="description" required=""> </textarea>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="createBtn" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/index.js"></script>
+</body>
+</html>

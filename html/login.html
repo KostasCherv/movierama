@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Login </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/bootstrap4.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="text-center vsc-initialized">
+  <form class="login-form" action="auth/login" method="POST">
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+      <input style="margin-top: 5px;" type="text" name="username" id="inputUsername" class="form-control" placeholder="username" required="" autofocus="">
+      <input  style="margin-top: 5px;"type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      <button style="margin-top: 5px;" class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+      <p id="error-message" style="color:red"></p>
+    </form>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const info = urlParams.get('error');
+  
+      if(info) {
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.innerText = info;
+        errorMessage.style.display = "block";
+      }
+    </script>
+</body>
+</html>
