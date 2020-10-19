@@ -166,6 +166,7 @@ async function hate (id) {
 
 async function loadUserMovies (id) {
   selectedUser = id
+  currentPage = 1
   loadMovies()
 }
 
@@ -283,9 +284,16 @@ function setPagination () {
   }
 }
 
+// When the user clicks on the button, scroll to the top of the document
+function goTop () {
+  document.body.scrollTop = 0 // For Safari
+  document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+}
+
 function nextPage () {
   if (hasNext) {
     currentPage += 1
+    goTop()
     selectedUser ? loadUserMovies(selectedUser) : loadAllMovies()
   }
 }
@@ -293,6 +301,7 @@ function nextPage () {
 function previousPage () {
   if (currentPage > 1) {
     currentPage -= 1
+    goTop()
     selectedUser ? loadUserMovies(selectedUser) : loadAllMovies()
   }
 }
