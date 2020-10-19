@@ -5,7 +5,7 @@ let sortBy = 'createdAt'
 let currentPage = 1
 let hasNext = false
 
-const movieList = document.getElementById('movieList')
+const moviesList = document.getElementById('movieList')
 const loggedInBtns = document.getElementById('loggedInBtns')
 const visitorBtns = document.getElementById('visitorBtns')
 
@@ -181,6 +181,10 @@ async function loadMovies () {
   url += '&createdBy=' + selectedUser
   url += '&sortBy=' + sortBy
 
+  moviesList.innerHTML = `  
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>`
   const response = await fetch(url, {
     method: 'GET',
     mode: 'cors',
@@ -202,7 +206,7 @@ async function loadMovies () {
 function renderMovieList (movies) {
   activeMovies = movies.slice()
 
-  movieList.innerHTML = ''
+  moviesList.innerHTML = ''
 
   switch (sortBy) {
     case 'likes':
@@ -267,7 +271,7 @@ function renderMovieList (movies) {
           </div>` : '') + `
         </div>
         `
-    movieList.appendChild(li)
+    moviesList.appendChild(li)
   })
   setPagination()
 }
