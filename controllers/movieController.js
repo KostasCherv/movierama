@@ -30,7 +30,7 @@ const getMovies = async (req, res) => {
       query.createdBy = createdBy
     }
 
-    const total = await Movie.countDocuments()
+    const total = await Movie.countDocuments(query)
     const movies = await Movie
       .find(query)
       .populate('likes')
