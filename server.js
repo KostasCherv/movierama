@@ -54,7 +54,10 @@ app.get('/register',
 
 const port = process.env.PORT || 3000
 require('mongoose').connection.once('open', () => {
-  app.listen(port, () => console.log('App listening on port ' + port))
+  app.listen(port, () => {
+    console.log('App listening on port ' + port)
+    console.log('Go to http://localhost:' + port + '/ to check the app')
+  })
   app.emit('started')
 })
 
