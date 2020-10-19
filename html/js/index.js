@@ -167,7 +167,6 @@ async function hate (id) {
 
 async function loadUserMovies (id) {
   selectedUser = id
-  currentPage = 1
   loadMovies()
 }
 
@@ -210,6 +209,7 @@ function renderMovieList (movies) {
   activeMovies = movies.slice()
 
   loaderContainer.innerHTML = ''
+  moviesList.innerHTML = ''
 
   switch (sortBy) {
     case 'likes':
@@ -344,7 +344,10 @@ document.getElementById('sortByHates').onclick = (e) => {
 
 document.getElementById('allMoviesBtn').onclick = () => loadAllMovies()
 
-document.getElementById('myMoviesBtn').onclick = () => loadUserMovies(user._id)
+document.getElementById('myMoviesBtn').onclick = () => {
+  currentPage = 1
+  loadUserMovies(user._id)
+}
 
 document.getElementById('createBtn').onclick = createMovie
 
