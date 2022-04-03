@@ -93,13 +93,6 @@ npm run test
 
 
 
-<!-- DEPLOYMENT -->
-## Deployment
-
-The project is deployed on [heroku](https://movierama-kcherv.herokuapp.com/#).
-
-You can fork the project and deploy it on heroku following this [process](https://devcenter.heroku.com/articles/git).
-
 
 
 
